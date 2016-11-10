@@ -1,0 +1,32 @@
+{
+  "name": "cflat",
+  "version": "0.0.1",
+  "description": "cFlat - Smart Home Gateway",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cgHome/cFlat.git"
+  },
+  "keywords": [
+    "Smart home",
+    "integration server",
+    "Docker",
+    "Raspberry Pi",
+    "mqtt",
+    "homekit",
+    "homebridge",
+    "Node-RED",
+    "portainer",
+    "traefik",
+    "hypriotOS"
+  ],
+  "author": "Chris.Gross <cgHome@gmx.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cgHome/cFlat/issues"
+  },
+  "homepage": "https://github.com/cgHome/cFlat#readme"
+}

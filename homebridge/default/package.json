@@ -1,0 +1,24 @@
+{
+  "name": "cflat-homebridge",
+  "version": "0.1.0",
+  "description": "cflat-homebridge",
+  "main": "index.js",
+  "bin": {
+    "homebridge": "./node_modules/homebridge/bin/"
+  },
+  "scripts": {
+    "start": "npm run prod",
+    "dev": "DEBUG=* ./node_modules/homebridge/bin/homebridge -D -P /mnt/smb/homebridge-plugins/ || true",
+    "prod": "./node_modules/homebridge/bin/homebridge -U ${PWD} || true",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chris.Gross <cgHome@gmx.net>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "homebridge": ">=0.4.6",
+    "homebridge-mqtt": ">=0.2.1",
+    "homebridge-harmonyhub": ">=0.1.1",
+    "homebridge-sonos": "git+https://github.com/cgHome/homebridge-sonos.git"
+  }
+}

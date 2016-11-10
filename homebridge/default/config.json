@@ -1,0 +1,28 @@
+{
+    "bridge": {
+        "name": "Homebridge",
+        "username": "CC:22:3D:E3:CE:30",
+        "port": 51826,
+        "pin": "031-45-154"
+    },
+    "description": "cFlat - Homekit-Bridge",
+    "platforms": [
+        {
+          "platform": "mqtt",
+          "name": "mqtt",
+          "url": "ws://127.0.0.1:9001",
+          "topic_prefix": "cFlat"
+        },
+        {
+            "platform": "HarmonyHub",
+            "name": "Wohnzimmer Harmony Hub"
+        }
+    ],
+    "accessories": [
+        {
+            "accessory": "Sonos",
+            "name": "Büro Musik",
+            "room": "Büro"
+        }
+    ]
+}

@@ -1,0 +1,72 @@
+version: '2'
+
+services:
+
+#   ToDo:
+#   - fgabriel/rpi-watchtower
+
+#   Homekit - Gateway
+    homebridge:
+        build: ./homebridge
+        image: cghome/cflat-homebridge
+        container_name: homebridge
+#        restart: always
+        network_mode: host
+        ports:
+            - "8765:8765"
+        volumes:
+            - ${HOME}/homebridge:/home/app
+        depends_on:
+            - mqtt
+
+#   Rule Engine
+    node-red:
+        build: ./node-red
+        image: cghome/cflat-node-red
+        container_name: node-red
+        restart: always
+        volumes:
+            - ${HOME}/node-red:/data
+        labels:
+            - traefik.frontend.rule=PathPrefixStrip:/node-red
+        depends_on:
+            - proxy
+            - mqtt
+
+    mqtt:
+        build: ./mqtt
+        image: cghome/cflat-mqtt
+        container_name: mqtt
+        restart: always
+        ports:
+            - "1883:1883"
+            - "9001:9001"
+        volumes:
+#           - ${HOME}/mqtt/config:/mqtt/config:ro
+            - ${HOME}/mqtt/log:/mqtt/log
+            - ${HOME}/mqtt/data/:/mqtt/data/
+
+    docker-ui:
+        build: ./docker-ui
+        image: cghome/cflat-docker-ui
+        container_name: docker-ui
+#       command: --swarm "true"
+        restart: always
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock'
+        labels:
+            - traefik.frontend.rule=PathPrefixStrip:/system
+        depends_on:
+            - proxy
+
+    proxy:
+        image: cghome/cflat-proxy
+        container_name: proxy
+        command: --web --docker --docker.watch --docker.domain=localhost 
+        restart: always
+        ports:
+            - "80:80"
+            - "8080:8080"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - /dev/null:/traefik.toml

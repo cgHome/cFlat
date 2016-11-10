@@ -1,0 +1,23 @@
+{
+    "name": "node-red",
+    "version": "0.14.6",
+    "description": ".",
+    "main": "node_modules/node-red/red/red.js",
+    "scripts": {
+        "start": "node $NODE_OPTIONS node_modules/node-red/red.js -v $FLOWS"
+    },
+    "author": "Chris.Gross <cgHome@gmx.net>",
+    "license": "MIT",
+    "repository": {},
+    "dependencies": {
+        "node-red": ">0.15.0",
+        "node-red-node-msgpack": "*",
+        "node-red-node-base64": "*",
+        "node-red-node-suncalc": "*",
+        "node-red-node-random": "*",
+        "node-red-dashboard": "*"
+    },
+    "engines": {
+        "node": "4.*.*"
+    }
+}

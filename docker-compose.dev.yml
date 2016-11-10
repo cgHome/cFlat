@@ -1,0 +1,7 @@
+version: '2'
+
+services:
+    homebridge:
+        command: ["npm", "run", "dev"]
+        ports:
+            - "5353:5353"        
