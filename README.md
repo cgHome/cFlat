@@ -39,7 +39,9 @@ Die Plattform basiert auf HypriotOS und ist somit auf allen Raspberry PI lauf­f
 1. Install hypriotOS on RPI [Documentation](http://blog.hypriot.com/post/releasing-HypriotOS-1-0/)
 
 ```sh
-flash -n cFlat hypriotOS/hypriotOS-rpi-[ver].img
+flash https://github.com/hypriot/image-builder-rpi/releases/download/[ver]/hypriotos-rpi-[ver].img.zip
+eg:
+flash https://github.com/hypriot/image-builder-rpi/releases/download/v1.1.0/hypriotos-rpi-v1.1.0.img.zip
 ```
 
 2. Login:
@@ -79,7 +81,7 @@ sudo mount.cifs //192.168.188.20/repo /mnt/smb/ -o user=Chris,rw,file_mode=0777,
 
 ## Note 
 
-- Version 0.0.1 alpha / cFlat 0.0.1 alpha is a preliminary release intended primarily for developers and advanced users only.
+**cFlat 0.0.1 alpha is a preliminary release intended primarily for developers and advanced users only**
 
 ## Copyright and license
 
