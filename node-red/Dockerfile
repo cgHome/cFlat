@@ -6,7 +6,7 @@ MAINTAINER Chris Gross <cgHome@gmx.net>
 # Install packages                               #
 ##################################################
 
-RUN apk add --no-cache --virtual .build-deps \
+RUN apk --no-cache add --virtual .build-deps \
         make \
         gcc \
         g++ \

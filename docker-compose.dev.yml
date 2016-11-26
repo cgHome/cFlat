@@ -2,6 +2,8 @@ version: '2'
 
 services:
     homebridge:
-        command: ["npm", "run", "dev"]
+        command: ["npm run dev"]
+        environment: 
+            -NODE_ENV=development
         ports:
-            - "5353:5353"        
+            - "5858:5858"

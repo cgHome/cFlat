@@ -4,6 +4,7 @@ BASEDIR=$(dirname $0)
 cd $BASEDIR
 
 ACTION=$1
+shift; ARGS=$@
 
 if [ -z "$ACTION" ];
   then
@@ -20,13 +21,13 @@ _init() {
 }
 
 _up() {
-  docker-compose -f docker-compose.yml up -d
+  docker-compose -f docker-compose.yml up -d $ARGS
 }
 _up-dev() {
-  docker-compose -f docker-compose.dev.yml -f docker-compose.yml up -d
+  docker-compose -f docker-compose.dev.yml -f docker-compose.yml up -d $ARGS
 }
 _down() {
-  docker-compose down
+  docker-compose down $ARGS
 }
 _logs() {
   docker-compose logs -f

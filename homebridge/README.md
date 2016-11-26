@@ -1,26 +1,51 @@
 # cFlat - homebridge
 
-## Developement
 
-### Build
+### Command's
+
+```sh
+# Build image
+./homebridge.sh build
+
+# Run production container
+./homebridge.sh run [cmd]
+
+# Run development container
+./homebridge.sh run-dev [cmd]
+
+# Run plugin development container
+./homebridge.sh run-plugin-dev [pluginName] [cmd]
 ```
-docker build -t cghome/cflat-homebridge homebridge
+
+### Setup development environment
+
+Step 1: Create samba share:
+
+```sh
+# Set samaba user & password
+sudo smbpasswd -a pirate
+
+# Save samba.conf
+sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
+
+# Add to samba.conf
+security = user
+
+[pirate]
+path = /home/pirate/
+writeable = yes
+guest ok = no
+
+# Test samba.conf
+testparm
+
+# Restart samba to use the new configuration file.
+sudo /etc/init.d/samba restart
 ```
 
-### Run - Production
-```
-docker run -it --rm --net host -p 51826:51826 -p 8080:8765 -v ${HOME}/homebridge:/home --name cflat-homebridge cghome/cflat-homebridge
+Step 2: 
 
-or:
-
-docker-compose up -d
-```
-
-### Run - Development
-```
-docker run -it --rm --net host -p 5353:5353 -p 51826:51826 -p 8080:8765 -v ${HOME}/homebridge:/home --name cflat-homebridge-dev cghome/cflat-homebridge
-
-or:
-
-docker-compose ....
+```sh
+# Clone homebridge
+homebridge/homebridge.sh dev "rm -rf ..?* .[!.]* * && git clone https://github.com/nfarina/homebridge.git ."
 ```

@@ -1,0 +1,18 @@
+{
+  "name": "cflat-homebridge-plugins",
+  "version": "0.1.0",
+  "description": "cflat-homebridge (plugins)",
+  "scripts": {
+    "start": "npm run prod",
+    "prod":  "homebridge -U ${HOME}/data -P ${HOME}/plugins / || true",
+    "dev":   "DEBUG=* homebridge -D -U ${HOME}/data -P ${HOME}/plugins || true",
+    "test":  "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chris.Gross <cgHome@gmx.net>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "homebridge-harmonyhub": ">=0.1.1",
+    "homebridge-sonos": "git+https://github.com/cgHome/homebridge-sonos.git"
+  }
+}

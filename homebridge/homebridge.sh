@@ -3,40 +3,56 @@
 BASEDIR=$(dirname $0)
 cd $BASEDIR
 
-VERSION=$(<VERSION)
-IMAGE_NAME=homebridge-v$VERSION
+IMAGE_NAME=cghome/cflat-homebridge
+CONTAINER_NAME=homebridge
 
-ACTION=$1
+ACTION=$1; shift
+ARGS=$@
 
-if [ -z "$ACTION" ];
-  then
-    echo "usage: $0 <build|run|stop|start|remove|rerun|attach|push|logs>";
+if [ -z "$ACTION" ]; then
+    echo "usage: $0 <build|prod|dev|stop|start|remove|rerun|attach|push|logs>";
     exit 1;
 fi
 
 _build() {
-  # Build
-  docker build --tag="cghome/cflat-homebridge:$VERSION" .
+  docker build -t $IMAGE_NAME .
 }
 
-_run() {
-  # Run (first time)
-  docker run -d --net=host -p 51826:51826 -v /etc/homebridge:/root/.homebridge --name $IMAGE_NAME cghome/cflat-homebridge:$VERSION
+_prod() {
+  docker run -it --rm --net host \
+    --name $CONTAINER_NAME \
+    -p 51826:51826 -p 8080:8080 \
+    -v ${HOME}/homebridge:/home \
+    $IMAGE_NAME "${ARGS[0]}"
 }
+
+_dev() {
+  # Set default commands
+  if [ -z "$ARGS" ]; then
+    ARGS[0]="npm run dev"
+  fi  
+
+  docker run -it --rm --net host \
+      --name $CONTAINER_NAME \
+      -e "NODE_ENV=development" \
+      -p 51826:51826 -p 8080:8080 -p 5858:5858 \
+      -v ${HOME}/homebridge:/home \
+      $IMAGE_NAME "${ARGS[0]}"
+} 
 
 _stop() {
   # Stop
-  docker stop $IMAGE_NAME
+  docker stop $CONTAINER_NAME
 }
 
 _start() {
   # Start (after stopping)
-  docker start $IMAGE_NAME
+  docker start $CONTAINER_NAME
 }
 
 _remove() {
   # Remove
-  docker rm $IMAGE_NAME
+  docker rm $CONTAINER_NAME
 }
 
 _rerun() {
@@ -46,21 +62,15 @@ _rerun() {
 }
 
 _attach() {
-  docker exec -ti $IMAGE_NAME bash
+  docker exec -ti $CONTAINER_NAME bash
 }
 
 _logs() {
-  docker logs $IMAGE_NAME
+  docker logs $CONTAINER_NAME
 }
 
 _push() {
-  docker push cghome/cflat-homebridge:$VERSION
-}
-
-_debug() {
-  # Run (first time)
-  echo "please go to /root and start run.sh"
-  docker run -ti --entrypoint /bin/bash --net=host -p 51826:51826 -v /etc/homebridge:/root/.homebridge --name $IMAGE_NAME cghome/cflat-homebridge:$VERSION 
+  docker push $IMAGE_NAME:$ARGS[0]
 }
 
 eval _$ACTION

@@ -8,10 +8,10 @@ MAINTAINER Chris Gross <cgHome@gmx.net>
 
 USER root
 
-RUN apk add --no-cache \
+RUN apk --no-cache add \
         dbus \
         avahi-dev \
-	make \
+    	make \
         python \ 
     	g++
 
@@ -21,20 +21,29 @@ RUN mkdir -p /var/run/dbus
 # Install Service                                #
 ##################################################
 
-WORKDIR /home/app
-# RUN chown -R docker /home
+# Install homebridge-app
+ENV APP=/usr/src/homebridge
+RUN mkdir -p $APP 
 
-# USER docker
+WORKDIR $APP
 
-COPY run.sh /home
-COPY default /home/.default
+COPY package.json entrypoint.sh $APP/
+COPY config $APP/.config/
+RUN chown -R app:app $APP
+
+USER app
+RUN npm install
+
+WORKDIR $HOME
 
 ##################################################
 # Start                                          #
 ##################################################
 
-EXPOSE 8765 51826
-VOLUME ["/home/app"]
+ENV NODE_ENV=production
 
-ENTRYPOINT ["../run.sh"]
-# CMD ["npm run prod"]
+EXPOSE 5858
+EXPOSE 51826 8080 
+
+#ENTRYPOINT ["${APP}/entrypoint.sh"]
+CMD ["npm run prod"]
