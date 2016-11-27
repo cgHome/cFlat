@@ -15,7 +15,7 @@ services:
         ports:
             - "8765:8765"
         volumes:
-            - ${HOME}/homebridge:/home/app
+            - ${HOME}/homebridge:/home
         depends_on:
             - mqtt
 

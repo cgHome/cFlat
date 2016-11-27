@@ -1,0 +1,6 @@
+
+version: '2'
+# Use docker-compose.dev.yml as parent configuration
+services:
+    homebridge:
+        command: ["npm run debug"]

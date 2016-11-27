@@ -1,76 +1,127 @@
 #!/bin/bash
+set -e
+cd $(dirname $0)
 
-BASEDIR=$(dirname $0)
-cd $BASEDIR
+action=$1; shift
+args=$@
 
-IMAGE_NAME=cghome/cflat-homebridge
-CONTAINER_NAME=homebridge
+image=cghome/cflat-homebridge
+container=homebridge
 
-ACTION=$1; shift
-ARGS=$@
-
-if [ -z "$ACTION" ]; then
-    echo "usage: $0 <build|prod|dev|stop|start|remove|rerun|attach|push|logs>";
+if [ -z "$action" ]; then
+    echo "usage: $0 <build|push|prod|dev|debug|stop|start|remove|restart|exec|bash|logs|installPlugins|uninstallPlugins>";
     exit 1;
 fi
 
+##################################################
+# Privat function                                #
+##################################################
+
+_isContainerRunning(){
+  #containerRunning=$(docker inspect --format="{{ .State.Running }}" $container 2> /dev/null)
+  if [ "$containerRunning" == "false" ]; then
+    echo "ERROR - ${container} is not running."
+    exit 2
+  fi
+}
+
+##################################################
+# Public function                                #
+##################################################
+
 _build() {
-  docker build -t $IMAGE_NAME .
+  if [ ! -f "./Dockerfile" ]; then
+    exit 1
+  fi;
+  docker build -t $image .
+}
+
+_push() {
+  docker push $image:$args[0]
 }
 
 _prod() {
-  docker run -it --rm --net host \
-    --name $CONTAINER_NAME \
+  docker run -it -d --net host \
+    --name $container \
     -p 51826:51826 -p 8080:8080 \
     -v ${HOME}/homebridge:/home \
-    $IMAGE_NAME "${ARGS[0]}"
+    $image $args
 }
-
 _dev() {
   # Set default commands
-  if [ -z "$ARGS" ]; then
-    ARGS[0]="npm run dev"
+  if [ -z "$args" ]; then
+    args[0]="npm run dev"
   fi  
 
   docker run -it --rm --net host \
-      --name $CONTAINER_NAME \
+      --name $container \
       -e "NODE_ENV=development" \
       -p 51826:51826 -p 8080:8080 -p 5858:5858 \
       -v ${HOME}/homebridge:/home \
-      $IMAGE_NAME "${ARGS[0]}"
+      $image $args
+}
+_debug() {
+  # Set default commands
+  if [ -z "$args" ]; then
+    args[0]="npm run debug"
+  fi  
+
+  docker run -it --rm --net host \
+      --name $container \
+      -e "NODE_ENV=development" \
+      -p 51826:51826 -p 8080:8080 -p 5858:5858 \
+      -v ${HOME}/homebridge:/home \
+      $image $args
 } 
 
-_stop() {
-  # Stop
-  docker stop $CONTAINER_NAME
+_start() {
+  docker start $container
 }
 
-_start() {
-  # Start (after stopping)
-  docker start $CONTAINER_NAME
+_stop() {
+  docker stop $container
 }
 
 _remove() {
-  # Remove
-  docker rm $CONTAINER_NAME
+  docker rm $container $args
 }
-
-_rerun() {
+_restart() {
   _stop
   _remove
   _run
 }
 
-_attach() {
-  docker exec -ti $CONTAINER_NAME bash
+_exec() {
+  _isContainerRunning
+  docker exec -ti $container $args
+}
+
+_bash() {
+  _isContainerRunning
+  docker exec -ti $container bash $args
 }
 
 _logs() {
-  docker logs $CONTAINER_NAME
+  _isContainerRunning
+  docker logs $container -t $args
 }
 
-_push() {
-  docker push $IMAGE_NAME:$ARGS[0]
+_installPlugins() {
+  _isContainerRunning
+  docker exec -it $container npm install -S $args
 }
 
-eval _$ACTION
+_uninstallPlugins() {
+  _isContainerRunning
+  docker exec -it $container npm uninstall -S $args
+}
+
+_editConfig() {
+  # read -r -p "Edit config.json file ? [y/N] " response
+  # response=${response,,} 
+  #if [[ $response =~ ^(yes|y)$ ]]; then 
+      nano ./data/config.json
+  #fi
+}
+
+eval _$action

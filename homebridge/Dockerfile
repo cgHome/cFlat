@@ -18,32 +18,32 @@ RUN apk --no-cache add \
 RUN mkdir -p /var/run/dbus
 
 ##################################################
-# Install Service                                #
+# Install service configuration                  #
 ##################################################
 
-# Install homebridge-app
-ENV APP=/usr/src/homebridge
-RUN mkdir -p $APP 
+ENV CFG=/usr/src/homebridge
+ENV BIN=$HOME/node_modules/homebridge/bin
 
-WORKDIR $APP
+RUN mkdir -p $CFG
 
-COPY package.json entrypoint.sh $APP/
-COPY config $APP/.config/
-RUN chown -R app:app $APP
+WORKDIR $CFG
 
+COPY entrypoint.sh homebridge.sh $CFG/
+COPY config $CFG/
+RUN chown -R app:app $CFG
+
+RUN npm install -g pm2
+
+##################################################
+# Start service                                  #
+##################################################
 USER app
-RUN npm install
-
 WORKDIR $HOME
-
-##################################################
-# Start                                          #
-##################################################
 
 ENV NODE_ENV=production
 
-EXPOSE 5858
 EXPOSE 51826 8080 
+EXPOSE 5858
 
-#ENTRYPOINT ["${APP}/entrypoint.sh"]
+ENTRYPOINT ["/usr/src/homebridge/entrypoint.sh"]
 CMD ["npm run prod"]

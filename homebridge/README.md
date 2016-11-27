@@ -8,13 +8,11 @@
 ./homebridge.sh build
 
 # Run production container
-./homebridge.sh run [cmd]
+./homebridge.sh prod [cmd]
 
 # Run development container
-./homebridge.sh run-dev [cmd]
+./homebridge.sh dev [cmd]
 
-# Run plugin development container
-./homebridge.sh run-plugin-dev [pluginName] [cmd]
 ```
 
 ### Setup development environment

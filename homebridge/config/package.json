@@ -1,17 +1,28 @@
 {
-  "name": "cflat-homebridge-plugins",
+  "name": "cflat-homebridge",
   "version": "0.1.0",
   "description": "cflat-homebridge (plugins)",
+  "main": "index.js",
+  "bin": {
+    "homebridge": "${BIN}"
+  },
+   "engines": {
+    "node": ">=0.12.0",
+    "homebridge": ">=0.4.0"
+  },
   "scripts": {
     "start": "npm run prod",
-    "prod":  "homebridge -U ${HOME}/data -P ${HOME}/plugins / || true",
-    "dev":   "DEBUG=* homebridge -D -U ${HOME}/data -P ${HOME}/plugins || true",
-    "test":  "echo \"Error: no test specified\" && exit 1"
+    "prod": "${BIN}/homebridge -U ${HOME}/data -P ${HOME}/node_modules / || true",
+    "dev": "DEBUG=* ${BIN}/homebridge -D -U ${HOME}/data -P ${HOME}/node_modules || true",
+    "debug": "DEBUG=* /usr/bin/node --debug ${BIN}/homebridge -D -U ${HOME}/data -P ${HOME}/node_modules || true",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Chris.Gross <cgHome@gmx.net>",
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "homebridge": ">=0.4.6",
+    "homebridge-mqtt": ">=0.2.1",
     "homebridge-harmonyhub": ">=0.1.1",
     "homebridge-sonos": "git+https://github.com/cgHome/homebridge-sonos.git"
   }

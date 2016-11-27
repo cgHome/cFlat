@@ -3,61 +3,85 @@
 BASEDIR=$(dirname $0)
 cd $BASEDIR
 
-IMAGE_NAME=cghome/cflat-docker-ui
-CONTAINER_NAME=docker-ui
+image=cghome/cflat-docker-ui
+container=docker-ui
 
-ACTION=$1
-shift; ARGS=$@
+action=$1; shift
+args=$@
 
-if [ -z "$ACTION" ];
+if [ -z "$action" ];
   then
-    echo "usage: $0 <build|run|stop|start|remove|rerun|attach|push|logs>";
+    echo "usage: $0 <build|push|run|prod|stop|start|remove|restart|exec|bash|logs>";
     exit 1;
 fi
 
+##################################################
+# Privat function                                #
+##################################################
+
+_isContainerRunning(){
+  #containerRunning=$(docker inspect --format="{{ .State.Running }}" $container 2> /dev/null)
+  if [ "$containerRunning" == "false" ]; then
+    echo "ERROR - ${container} is not running."
+    exit 2
+  fi
+}
+
+##################################################
+# Public function                                #
+##################################################
+
 _build() {
-  docker build -t $IMAGE_NAME .
+  docker build -t $image .
+}
+
+_push() {
+  docker push $image:$args[0]
 }
 
 _run() {
-  docker run -d \
-    -p 9000:9000 \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    --name $CONTAINER_NAME \
-    $IMAGE_NAME $ARGS
+  _prod
 }
 
-_stop() {
-  # Stop
-  docker stop $CONTAINER_NAME
+_prod() {
+  docker run -d \
+    --name $container \
+    -p 9000:9000 \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    $image $args
 }
 
 _start() {
-  # Start (after stopping)
-  docker start $CONTAINER_NAME
+  docker start $container
+}
+
+_stop() {
+  docker stop $container
 }
 
 _remove() {
-  # Remove
-  docker rm $CONTAINER_NAME
+  docker rm $container
 }
 
-_rerun() {
+_restart() {
   _stop
   _remove
   _run
 }
 
-_attach() {
-  docker exec -ti $CONTAINER_NAME bash
+_exec() {
+  _isContainerRunning
+  docker exec -ti $container $args
+}
+
+_bash() {
+  _isContainerRunning
+  docker exec -ti $container bash $args
 }
 
 _logs() {
-  docker logs $CONTAINER_NAME
+  _isContainerRunning
+  docker logs $container -t $args
 }
 
-_push() {
-  docker push $IMAGE_NAME:$ARGS[0]
-}
-
-eval _$ACTION
+eval _$action

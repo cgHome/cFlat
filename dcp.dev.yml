@@ -1,9 +1,9 @@
 version: '2'
-
+# Use docker-compose.prod.yml as parent configuration
 services:
     homebridge:
         command: ["npm run dev"]
         environment: 
-            -NODE_ENV=development
+            - NODE_ENV=development
         ports:
             - "5858:5858"

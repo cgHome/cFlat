@@ -1,16 +1,22 @@
 #!/bin/bash
+set -e
+cd $(dirname $0)
 
-BASEDIR=$(dirname $0)
-cd $BASEDIR
+ACTION=$1; shift; 
+ARGS=$@
 
-ACTION=$1
-shift; ARGS=$@
-
-if [ -z "$ACTION" ];
-  then
-    echo "usage: $0 <init|up|up-dev|down|logs>";
+if [ -z "$action" ]; then
+    echo "usage: $0 <init|prod|dev|debug|down|logs>";
     exit 1;
 fi
+
+##################################################
+# Privat function                                #
+##################################################
+
+##################################################
+# Public function                                #
+##################################################
 
 _init() {
   # (Temp) init
@@ -20,17 +26,24 @@ _init() {
   chmod -R 777 mqtt
 }
 
-_up() {
-  docker-compose -f docker-compose.yml up -d $ARGS
-}
-_up-dev() {
-  docker-compose -f docker-compose.dev.yml -f docker-compose.yml up -d $ARGS
-}
-_down() {
-  docker-compose down $ARGS
-}
-_logs() {
-  docker-compose logs -f
+_prod() {
+  docker-compose -f dcp.prod.yml up -d $args
 }
 
-eval _$ACTION
+_dev() {
+  docker-compose -f dcp.dev.yml -f dcp.prod.yml up -d $args
+}
+
+_debug() {
+  docker-compose -f dcp.dbg.yml -f dcp.dev.yml -f dcp.prod.yml up -d $args
+}
+
+_down() {
+  docker-compose down $args
+}
+
+_logs() {
+  docker-compose logs -t $args
+}
+
+eval _$action
