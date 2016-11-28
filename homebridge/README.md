@@ -2,12 +2,12 @@
 
 HomeKit support for the impatient
 
-### Documentation
+## Documentation
 
 - [Docu](https://github.com/nfarina/homebridge)
 - [Docker - image](https://github.com/cgHome/cflat/blob/master/homebridge/Dockerfile)
 
-### Build
+## Build
 
 ```sh
 ./cflat.sh build homebridge
@@ -15,7 +15,7 @@ HomeKit support for the impatient
 homebridge/homebridge.sh build
 ```
 
-### Usage
+## Usage
 
 ```sh
 # Run
@@ -24,7 +24,7 @@ homebridge/homebridge.sh build
 homebridge/homebridge.sh [prod|dev|debug] [args]
 ```
 
-### Commands
+## Command-line interface
 
 ```sh
 homebridge/homebridge.sh [command] [args]

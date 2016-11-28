@@ -4,13 +4,12 @@ cFlat is an integration platform on RPI for easy integration of various devices 
 
 Note: **cFlat 0.0.x alpha is a preliminary release intended primarily for developers and advanced users only**
 
-
 [GERMAN]:
 
 (Anmerkung: Dieses Dokument ist eine Rohfassung,  aber um fünf Uhr Morgens kann man von mir keine grossen journalistische Ergüsse erwarten, Sorry)
 
 cFlat ist eine Integrationsplattform zur vereinfachten Einbindung verschiedener Smart Home Geräte ins Apple Homekit Universum.
-Die Plattform basiert auf  HypriotOS, diese Distribution wurde für den Einsatz von Docker optimiert. Das OS selbst, setzt auf einer Debian-basierten Distribution (Raspbian Lite) auf und ist somit auf allen Raspberry Pi. Modellen  (ARMv6 & ARMv7) und deren Artverwandten lauffähig.  
+Die Plattform basiert auf  HypriotOS, diese Distribution wurde für den Einsatz von Docker optimiert. Das OS selbst, setzt auf einer Debian-basierten Distribution (Raspbian Lite) auf und ist somit auf allen Raspberry Pi. Modellen  (ARMv6 & ARMv7) und deren Artverwandten lauffähig.
 
 Um die Grösse der einzelnen Images so gering wie möglich zu halten, basieren diese, wenn möglich, auf Alpine Linux, deren Basisgrösse bei 5 MB liegt.
 
@@ -40,7 +39,7 @@ Die Compose Files sind so aufgebaut, dass sie die Definitionen voneinander „er
 
 **Hierarchie:**   Produktion (root) → Development → Debug
 
-## Commando
+## Command-line interface
 
 Zur einfacheren handhabe des Systems, wird ein einfaches Script (cflat.sh) bereitgestellt, über das die Platform gesteuert werden kann.
 
@@ -108,7 +107,7 @@ sudo apt-get install smbclient cifs-utils
 
 ```sh
 sudo mount.cifs //[ip]/[repo] /mnt/smb/ -o user=[username],password=[password],rw,file_mode=0777,dir_mode=0777
-e.g.: 
+e.g.:
 sudo mount.cifs //192.168.188.20/repo /mnt/smb/ -o user=Chris,rw,file_mode=0777,dir_mode=0777
 ```
 
