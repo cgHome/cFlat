@@ -2,12 +2,12 @@
 
 A visual tool for wiring the Internet of Things, based on Alpine Linux
 
-### Documentation
+## Documentation
 
 - [Docu](http://nodered.org/)
 - [Docker - image](https://github.com/cgHome/cflat/blob/master/node-red/Dockerfile)
 
-### Build
+## Build
 
 ```sh
 ./cflat.sh build node-red
@@ -15,13 +15,13 @@ A visual tool for wiring the Internet of Things, based on Alpine Linux
 docker build -t cghome/cflat-node-red node-red
 ```
 
-### Usage
+## Usage
 
 ```sh
 # Init
 ./cflat.sh init
 # or:
-mkdir -p node-red
+rm -rf node-red && mkdir -p node-red
 
 # Run
 ./cflat.sh [prod|dev|debug] mqtt

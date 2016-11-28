@@ -18,6 +18,11 @@ homebridge/homebridge.sh build
 ## Usage
 
 ```sh
+# Init
+./cflat.sh init
+# or:
+rm -rf- homebridge && mkdir -p homebridge
+
 # Run
 ./cflat.sh [prod|dev|debug] homebridge
 # or:

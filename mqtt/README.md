@@ -2,12 +2,12 @@
 
 Mosquitto is an message broker service that uses the MQTT protocol to send and receive messages, typically with IOT (Internet of Things) devices.
 
-### Documentation
+## Documentation
 
 - [Docu](https://mosquitto.org/)
 - [Docker - image](https://hub.docker.com/r/broodzak/rpi-mosquitto/)
 
-### Build
+## Build
 
 ```sh
 ./cflat.sh build mqtt
@@ -15,13 +15,13 @@ Mosquitto is an message broker service that uses the MQTT protocol to send and r
 docker build -t cghome/cflat-mqtt mqtt
 ```
 
-### Usage
+## Usage
 
 ```sh
 # Init
 ./cflat.sh init
 # or:
-mkdir -p mqtt/{config,data,log}
+rm -rf mkidir && mkdir -p mqtt/{config,data,log}
 chmod -R 777 mqtt
 
 # Run
