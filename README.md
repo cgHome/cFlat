@@ -2,37 +2,64 @@
 
 cFlat is an integration platform on RPI for easy integration of various devices into the Apple Home Kit universe.
 
+Note: **cFlat 0.0.x alpha is a preliminary release intended primarily for developers and advanced users only**
+
+
 [GERMAN]:
 
-cFlat ist eine Integrationsplattform zur vereinfachten Einbindung verschiedener Geräte ins Apple Homekit Universum.
+(Anmerkung: Dieses Dokument ist eine Rohfassung,  aber um fünf Uhr Morgens kann man von mir keine grossen journalistische Ergüsse erwarten, Sorry)
 
-Die Plattform basiert auf HypriotOS und ist somit auf allen Raspberry PI lauf­fä­hig, wobei gemäss Dokumentation, diese auch mit Docker for Mac/Win funktionieren sollten (nicht getestet). Die einzelnen Docker-Images basieren auf Alpine Linux, deren Basisgrösse bei nur 5MB liegt.
+cFlat ist eine Integrationsplattform zur vereinfachten Einbindung verschiedener Smart Home Geräte ins Apple Homekit Universum.
+Die Plattform basiert auf  HypriotOS, diese Distribution wurde für den Einsatz von Docker optimiert. Das OS selbst, setzt auf einer Debian-basierten Distribution (Raspbian Lite) auf und ist somit auf allen Raspberry Pi. Modellen  (ARMv6 & ARMv7) und deren Artverwandten lauffähig.  
 
-...
+Um die Grösse der einzelnen Images so gering wie möglich zu halten, basieren diese, wenn möglich, auf Alpine Linux, deren Basisgrösse bei 5 MB liegt.
 
-## Concept
+Es sind folgende Service/Komponenten implementiert:
 
-(ToDo)
+- homebridge
+- node-red
+- mqtt (Brocker)
+- docker-ui
+- proxy
+- watchtower (noch nicht implementiert)
 
-## Quick start
+## Environment
 
-(ToDo)
+Es ist sind zwei Umgebungen implementiert, wobei diese in verschiedenen „Modi“ (prod/dev/debug) gestartet werden. Diese sind wenn nötig, als npm-scripts in den jeweiligen Services definiert (siehe cflat-homebridge).
 
-## Softwarestack
+1. Produktion
 
-- [homebridge - HomeKit support for the impatient](https://github.com/nfarina/homebridge/)
-- [Node-RED - A visual tool for wiring the Internet of Things](http://nodered.org/)
-- [portainer - Simple management UI for Docker](http://portainer.io/)
-- [mosquitto - MQTT - Broker](https://mosquitto.org/)
-- [traefik - HTTP reverse proxy](https://traefik.io/)
-- [hypriotOS - DockerOS for Raspberry Pi](https://github.com/hypriot/image-builder-rpi/releases/tag/v1.0.0)
+   - **prod-mode:**  → docker-compose.prod.yml → „npm run prod“
 
-## ToDo
+2. Development
 
-- Dokumentation
-- Run/Build - Docker-Scripts
-- Base-Configuration
-- SSL/TSL - Support
+   - **dev-mode:**   → docker-compose.dev.yml → „npm run dev“
+   - **debug-mode:** → docker-compose.debug.yml → „npm run debug“
+
+Die Compose Files sind so aufgebaut, dass sie die Definitionen voneinander „erben“ und somit nur die jeweilige Spezialisierung (es lebe der OO Gedanke) definiert werden muss.
+
+**Hierarchie:**   Produktion (root) → Development → Debug
+
+## Commando
+
+Zur einfacheren handhabe des Systems, wird ein einfaches Script (cflat.sh) bereitgestellt, über das die Platform gesteuert werden kann.
+
+```sh
+# Init platform
+./cflat.sh init
+# Build platform
+./cflat.sh build [args]
+# Run platform in prod-mode
+./cflat.sh prod [args]
+# Run platform in dev-mode
+./cflat.sh dev [args]
+# Run platform in debug-mode
+./cflat.sh debug [args]
+# Shutdown platform
+./cflat.sh down [args]
+# View logfiles
+./cflat.sh logs [args]
+```
 
 ## Getting Started
 
@@ -40,7 +67,7 @@ Die Plattform basiert auf HypriotOS und ist somit auf allen Raspberry PI lauf­f
 
 ```sh
 flash https://github.com/hypriot/image-builder-rpi/releases/download/[ver]/hypriotos-rpi-[ver].img.zip
-eg:
+# eg:
 flash https://github.com/hypriot/image-builder-rpi/releases/download/v1.1.0/hypriotos-rpi-v1.1.0.img.zip
 ```
 
@@ -49,17 +76,23 @@ flash https://github.com/hypriot/image-builder-rpi/releases/download/v1.1.0/hypr
 ```sh
 # (default-password 'hypriot')
 ssh pirate@cFlat.local
+# change default-password (important for security reason)
+passwd
 ```
 
 3. Clone github
 
 ```sh
+git clone https://github.com/cgHome/cflat.git
 ```
 
-4. cflat - commands
+4. Build cflat
 
 ```sh
-./cflat.sh <init|up|up-dev|down|logs>
+# Init platform
+./cflat.sh init
+# Build platform
+./cflat.sh build
 ```
 
 ## Install Development-System
@@ -79,9 +112,47 @@ e.g.:
 sudo mount.cifs //192.168.188.20/repo /mnt/smb/ -o user=Chris,rw,file_mode=0777,dir_mode=0777
 ```
 
-## Note 
+### Setup samba-share
 
-**cFlat 0.0.1 alpha is a preliminary release intended primarily for developers and advanced users only**
+> For terminal hater
+
+```sh
+# Set samaba user & password
+sudo smbpasswd -a pirate
+
+# Save samba.conf
+sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
+
+# Add to samba.conf
+security = user
+
+[pirate]
+path = /home/pirate/
+writeable = yes
+guest ok = no
+
+# Test samba.conf
+testparm
+
+# Restart samba to use the new configuration file.
+sudo /etc/init.d/samba restart
+```
+
+## Used open source components
+
+- [homebridge - HomeKit support for the impatient](https://github.com/nfarina/homebridge/)
+- [Node-RED - A visual tool for wiring the Internet of Things](http://nodered.org/)
+- [portainer - Simple management UI for Docker](http://portainer.io/)
+- [mosquitto - MQTT - Broker](https://mosquitto.org/)
+- [traefik - HTTP reverse proxy](https://traefik.io/)
+- [hypriotOS - DockerOS for Raspberry Pi](https://github.com/hypriot/image-builder-rpi/releases/tag/v1.0.0)
+
+## ToDo
+
+- Dokumentation
+- Run/Build - Docker-Scripts
+- Base-Configuration
+- SSL/TSL - Support
 
 ## Copyright and license
 
