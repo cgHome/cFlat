@@ -1,9 +1,9 @@
 version: '2'
-
+# Root configuration
 services:
 
 #   ToDo:
-#   - fgabriel/rpi-watchtower
+#   - implement fgabriel/rpi-watchtower
 
 #   Homekit - Gateway
     homebridge:

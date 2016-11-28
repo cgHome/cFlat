@@ -2,11 +2,11 @@
 set -e
 cd $(dirname $0)
 
-ACTION=$1; shift; 
-ARGS=$@
+action=$1; shift; 
+args=$@
 
 if [ -z "$action" ]; then
-    echo "usage: $0 <init|prod|dev|debug|down|logs>";
+    echo "usage: $0 <init|build|prod|dev|debug|down|logs>";
     exit 1;
 fi
 
@@ -26,16 +26,20 @@ _init() {
   chmod -R 777 mqtt
 }
 
+_build() {
+  docker-compose -f docker-compose.prod.yml build $args
+}
+
 _prod() {
-  docker-compose -f dcp.prod.yml up -d $args
+  docker-compose -f docker-compose.prod.yml up -d $args
 }
 
 _dev() {
-  docker-compose -f dcp.dev.yml -f dcp.prod.yml up -d $args
+  docker-compose -f docker-compose.dev.yml -f docker-compose.prod.yml up -d $args
 }
 
 _debug() {
-  docker-compose -f dcp.dbg.yml -f dcp.dev.yml -f dcp.prod.yml up -d $args
+  docker-compose -f docker-compose.dbg.yml -f docker-compose.dev.yml -f docker-compose.prod.yml up -d $args
 }
 
 _down() {
