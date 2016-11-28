@@ -16,12 +16,12 @@ Um die Grösse der einzelnen Images so gering wie möglich zu halten, basieren d
 
 Es sind folgende Service/Komponenten implementiert:
 
-- homebridge
-- node-red
-- mqtt (Brocker)
-- docker-ui
-- proxy
-- watchtower (noch nicht implementiert)
+- [homebridge](homebridge/README.md)
+- [node-red](node-red/README.md)
+- [mqtt (Brocker)](mqtt/README.md)
+- [docker-ui](docker-ui/README.md)
+- [proxy](proxy/README.md)
+- [watchtower (noch nicht implementiert)](watchtower/README.md)
 
 ## Environment
 
@@ -91,7 +91,7 @@ git clone https://github.com/cgHome/cflat.git
 ```sh
 # Init platform
 ./cflat.sh init
-# Build platform
+# Build whole platform
 ./cflat.sh build
 ```
 
@@ -149,9 +149,8 @@ sudo /etc/init.d/samba restart
 
 ## ToDo
 
-- Dokumentation
-- Run/Build - Docker-Scripts
-- Base-Configuration
+- Docu, Docu ....
+- Basic UI
 - SSL/TSL - Support
 
 ## Copyright and license

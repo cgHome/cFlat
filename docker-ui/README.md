@@ -1,16 +1,31 @@
 # cFlat - Docker-UI
 
-Lightweight docker management ui (see on: [portainer/portainer](https://github.com/portainer/portainer))
+Simple management UI for Docker
+
+### Documentation
+
+- [Docu](http://portainer.io/)
+- [Docker - image](https://hub.docker.com/r/portainer/portainer/)
 
 ### Build
+
+```sh
+./cflat.sh build docker-ui
+# or:
+docker-ui/docker-ui.sh build
 ```
-docker build -t cghome/cflat-docker-ui docker-ui
-```
+
 ### Usage
+
+```sh
+# Run
+./cflat.sh [prod|dev|debug] docker-ui
+# or:
+docker-ui/docker-ui.sh [prod|dev|debug] [args]
 ```
-docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock cghome/cflat-docker-ui
 
-or:
+### Commands
 
-docker-compose up -d docker-ui
+```sh
+./docker-ui.sh [command] [args]
 ```
