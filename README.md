@@ -39,7 +39,7 @@ Die Compose Files sind so aufgebaut, dass sie die Definitionen voneinander „er
 
 **Hierarchie:**   Produktion (root) → Development → Debug
 
-## Command-line interface
+## CLI interface
 
 Zur einfacheren handhabe des Systems, wird ein einfaches Script (cflat.sh) bereitgestellt, über das die Platform gesteuert werden kann.
 
@@ -47,17 +47,17 @@ Zur einfacheren handhabe des Systems, wird ein einfaches Script (cflat.sh) berei
 # Init platform
 ./cflat.sh init
 # Build platform
-./cflat.sh build [args]
+./cflat.sh build [ARG...]
 # Run platform in prod-mode
-./cflat.sh prod [args]
+./cflat.sh prod [ARG...]
 # Run platform in dev-mode
-./cflat.sh dev [args]
+./cflat.sh dev [ARG...]
 # Run platform in debug-mode
-./cflat.sh debug [args]
+./cflat.sh debug [ARG...]
 # Shutdown platform
-./cflat.sh down [args]
+./cflat.sh down [ARG...]
 # View logfiles
-./cflat.sh logs [args]
+./cflat.sh logs [ARG...]
 ```
 
 ## Getting Started

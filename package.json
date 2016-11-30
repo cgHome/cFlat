@@ -1,6 +1,6 @@
 {
   "name": "cflat",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "cFlat - Smart Home Gateway",
   "main": "index.js",
   "scripts": {

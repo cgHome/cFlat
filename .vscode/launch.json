@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Docker: Attach to homebridge",
+            "type": "node",
+            "request": "attach",
+            "port": 5858,
+            "address": "cflat.local",
+            "restart": false,
+            "sourceMaps": false,
+            "outFiles": [],
+            // "localRoot": "/Volumes/pirate/homebridge/node_modules",
+            "localRoot": "${workspaceRoot}",
+            "remoteRoot": "/home/node_modules"
+        }
+    ]
+}

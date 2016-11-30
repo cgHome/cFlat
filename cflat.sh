@@ -2,20 +2,22 @@
 set -e
 cd $(dirname $0)
 
-action=$1; shift; 
-args=$@
+usage="usage: $0 <init|build|prod|dev|debug|down|logs>";
 
-if [ -z "$action" ]; then
-    echo "usage: $0 <init|build|prod|dev|debug|down|logs>";
+if [ "$#" == "0" ]; then
+    echo "$usage"
     exit 1;
 fi
+
+action=$1; shift
+args=$@
 
 ##################################################
 # Privat function                                #
 ##################################################
 
 ##################################################
-# Public function                                #
+# Public function (CLI)                          #
 ##################################################
 
 _init() {
@@ -39,15 +41,15 @@ _dev() {
 }
 
 _debug() {
-  docker-compose -f docker-compose.dbg.yml -f docker-compose.dev.yml -f docker-compose.prod.yml up -d $args
+  docker-compose -f docker-compose.debug.yml -f docker-compose.dev.yml -f docker-compose.prod.yml up -d $args
 }
 
-_down() {
-  docker-compose down $args
+_shutdown() {
+  docker-compose -f docker-compose.debug.yml -f docker-compose.dev.yml -f docker-compose.prod.yml down $args
 }
 
 _logs() {
-  docker-compose logs -t $args
+  docker-compose -f docker-compose.debug.yml -f docker-compose.dev.yml -f docker-compose.prod.yml logs -t $args
 }
 
 eval _$action

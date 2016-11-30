@@ -7,25 +7,24 @@ Simple management UI for Docker
 - [Docu](http://portainer.io/)
 - [Docker - image](https://hub.docker.com/r/portainer/portainer/)
 
-## Build
+## CLI interface
 
 ```sh
-./cflat.sh build docker-ui
-# or:
+docker-ui/docker-ui.sh COMMAND [ARG...]
+```
+
+### Build
+
+```sh
 docker-ui/docker-ui.sh build
-```
-
-## Usage
-
-```sh
-# Run
-./cflat.sh [prod|dev|debug] docker-ui
 # or:
-docker-ui/docker-ui.sh [prod|dev|debug] [args]
+./cflat.sh build docker-ui
 ```
 
-## Command-line interface
+### Usage
 
 ```sh
-docker-ui/docker-ui.sh [command] [args]
+docker-ui/docker-ui.sh prod|dev|debug [ARG...]
+# or:
+./cflat.sh prod|dev|debug docker-ui
 ```

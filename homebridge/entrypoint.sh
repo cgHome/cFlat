@@ -6,16 +6,17 @@ if [ -z "$NODE_ENV" ]; then
 fi
 
 echo "Config homebridge"
-if [ ! -f "$HOME/package.json" ]; then
-    echo "--> package.json not found (Copy default file)."
-    rm -rf node_modules
-    cp -pv $CFG/package.json $HOME
-fi
 if [ ! -f "$HOME/homebridge.sh" ]; then
     cp -pv $CFG/homebridge.sh $HOME
 fi
+if [ ! -f "$HOME/package.json" ]; then
+    rm -rf node_modules
+    cp -pv $CFG/package.json $HOME
+fi
+if [ ! -f "$HOME/pm2.config.js" ]; then
+    cp -pv $CFG/pm2.config.js $HOME
+fi
 if [ ! -f "$HOME/data/config.json" ]; then
-    echo "--> config.json not found (Copy default file)."
     rm -rf data
     mkdir -p $HOME/data
     cp -pv $CFG/config.json $HOME/data
@@ -23,6 +24,7 @@ fi
 
 echo "Install homebridge ....."
 npm install
+echo "done ....."
 
 echo "Start avahi (bonjour)"
 su-exec root sed -i "s/rlimit-nproc=3/#rlimit-nproc=3/" /etc/avahi/avahi-daemon.conf 

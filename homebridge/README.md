@@ -7,30 +7,30 @@ HomeKit support for the impatient
 - [Docu](https://github.com/nfarina/homebridge)
 - [Docker - image](https://github.com/cgHome/cflat/blob/master/homebridge/Dockerfile)
 
-## Build
+## CLI interface
 
 ```sh
-./cflat.sh build homebridge
-# or:
-homebridge/homebridge.sh build
+homebridge/homebridge.sh COMMAND [ARG...]
 ```
 
-## Usage
+### Build
+
+```sh
+homebridge/homebridge.sh build
+# or:
+./cflat.sh build homebridge
+```
+
+### Usage
 
 ```sh
 # Init
-./cflat.sh init
+rm -rf- ~/homebridge && mkdir -p ~/homebridge
 # or:
-rm -rf- homebridge && mkdir -p homebridge
+./cflat.sh init
 
 # Run
-./cflat.sh [prod|dev|debug] homebridge
+homebridge/homebridge.sh prod|dev|debug [ARG...]
 # or:
-homebridge/homebridge.sh [prod|dev|debug] [args]
-```
-
-## Command-line interface
-
-```sh
-homebridge/homebridge.sh [command] [args]
+./cflat.sh prod|dev|debug homebridge
 ```

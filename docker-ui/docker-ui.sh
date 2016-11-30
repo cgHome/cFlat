@@ -6,14 +6,15 @@ cd $BASEDIR
 image=cghome/cflat-docker-ui
 container=docker-ui
 
-action=$1; shift
-args=$@
+usage="usage: $0 <build|push|run|prod|stop|start|remove|shutdown|restart|exec|bash|logs>";
 
-if [ -z "$action" ];
-  then
-    echo "usage: $0 <build|push|run|prod|stop|start|remove|restart|exec|bash|logs>";
+if [ "$#" == "0" ]; then
+    echo "$usage"
     exit 1;
 fi
+
+action=$1; shift
+args=$@
 
 ##################################################
 # Privat function                                #
@@ -28,7 +29,7 @@ _isContainerRunning(){
 }
 
 ##################################################
-# Public function                                #
+# Public function (CLI)                          #
 ##################################################
 
 _build() {
@@ -40,15 +41,15 @@ _push() {
 }
 
 _run() {
-  _prod
-}
-
-_prod() {
   docker run -d \
     --name $container \
     -p 9000:9000 \
     -v /var/run/docker.sock:/var/run/docker.sock \
     $image $args
+}
+
+_prod() {
+  _run
 }
 
 _start() {
@@ -64,9 +65,13 @@ _remove() {
 }
 
 _restart() {
+  _shutdown
+  _run
+}
+
+_shutdown() {
   _stop
   _remove
-  _run
 }
 
 _exec() {

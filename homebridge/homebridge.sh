@@ -2,16 +2,18 @@
 set -e
 cd $(dirname $0)
 
-action=$1; shift
-args=$@
-
 image=cghome/cflat-homebridge
 container=homebridge
 
-if [ -z "$action" ]; then
-    echo "usage: $0 <build|push|prod|dev|debug|stop|start|remove|restart|exec|bash|logs|installPlugins|uninstallPlugins>";
+usage="usage: $0 <build|push|prod|dev|stop|start|remove|shutdown|restart|exec|bash|logs|installPlugins|uninstallPlugins>";
+
+if [ "$#" == "0" ]; then
+    echo "$usage"
     exit 1;
 fi
+
+action=$1; shift
+args=$@
 
 ##################################################
 # Privat function                                #
@@ -26,7 +28,7 @@ _isContainerRunning(){
 }
 
 ##################################################
-# Public function                                #
+# Public function (CLI)                          #
 ##################################################
 
 _build() {
@@ -47,8 +49,9 @@ _prod() {
     -v ${HOME}/homebridge:/home \
     $image $args
 }
+
 _dev() {
-  # Set default commands
+  # Set default command
   if [ -z "$args" ]; then
     args[0]="npm run dev"
   fi  
@@ -60,19 +63,6 @@ _dev() {
       -v ${HOME}/homebridge:/home \
       $image $args
 }
-_debug() {
-  # Set default commands
-  if [ -z "$args" ]; then
-    args[0]="npm run debug"
-  fi  
-
-  docker run -it --rm --net host \
-      --name $container \
-      -e "NODE_ENV=development" \
-      -p 51826:51826 -p 8080:8080 -p 5858:5858 \
-      -v ${HOME}/homebridge:/home \
-      $image $args
-} 
 
 _start() {
   docker start $container
@@ -85,9 +75,14 @@ _stop() {
 _remove() {
   docker rm $container $args
 }
-_restart() {
+
+_shutdown() {
   _stop
   _remove
+}
+
+_restart() {
+  _shutdown
   _run
 }
 
