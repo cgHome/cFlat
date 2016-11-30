@@ -1,20 +1,21 @@
 {
   "name": "cflat-homebridge",
   "version": "0.1.0",
-  "description": "cflat-homebridge (plugins)",
+  "description": "cflat-homebridge",
   "main": "index.js",
   "bin": {
     "homebridge": "${BIN}"
   },
-   "engines": {
+  "engines": {
     "node": ">=0.12.0",
     "homebridge": ">=0.4.0"
   },
   "scripts": {
     "start": "npm run prod",
-    "prod": "${BIN}/homebridge -U ${HOME}/data -P ${HOME}/node_modules / || true",
-    "dev": "DEBUG=* ${BIN}/homebridge -D -U ${HOME}/data -P ${HOME}/node_modules || true",
-    "debug": "DEBUG=* /usr/bin/node --debug ${BIN}/homebridge -D -U ${HOME}/data -P ${HOME}/node_modules || true",
+    "prod": "pm2-docker start --env production pm2.config.js || true",
+    "dev": "DEBUG=homebridge* pm2-docker start pm2.config.js || true",
+    "debug": "NODE_ARGS='--debug' pm2-docker start pm2.config.js || true",
+    "debug-brk": "NODE_ARGS='--debug-brk' pm2-docker start pm2.config.js || true",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Chris.Gross <cgHome@gmx.net>",
