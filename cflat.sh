@@ -2,7 +2,7 @@
 set -e
 cd $(dirname $0)
 
-usage="usage: $0 <init|build|prod|dev|debug|down|logs>";
+usage="usage: $0 <init|build|prod|dev|debug|shutdown|logs>";
 
 if [ "$#" == "0" ]; then
     echo "$usage"
