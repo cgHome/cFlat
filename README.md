@@ -1,8 +1,10 @@
 # cFlat - Smart Home Gateway
 
-cFlat is an integration platform on RPI for easy integration of various devices into the Apple Home Kit universe.
+cFlat is an docker integration platform on RPI for easy integration of various devices into the Apple Home Kit universe.
 
-Note: **cFlat 0.0.x alpha is a preliminary release intended primarily for developers and advanced users only**
+Note:
+
+**cFlat 0.0.x alpha is a preliminary release intended primarily for developers and advanced users only**
 
 [GERMAN]:
 
@@ -46,23 +48,27 @@ Zur einfacheren handhabe des Systems, wird ein einfaches Script (cflat.sh) berei
 ```sh
 # Init platform
 ./cflat.sh init
+
 # Build platform
 ./cflat.sh build [ARG...]
+
 # Run platform in prod-mode
 ./cflat.sh prod [ARG...]
 # Run platform in dev-mode
 ./cflat.sh dev [ARG...]
-# Run platform in debug-mode
-./cflat.sh debug [ARG...]
+# Run platform in debug-brk-mode
+./cflat.sh debug-brk [ARG...]
+
 # Shutdown platform
-./cflat.sh down [ARG...]
+./cflat.sh shutdown [ARG...]
+
 # View logfiles
 ./cflat.sh logs [ARG...]
 ```
 
 ## Getting Started
 
-1. Install hypriotOS on RPI [Documentation](http://blog.hypriot.com/post/releasing-HypriotOS-1-0/)
+### Step-1. Install hypriotOS on RPI [Documentation](http://blog.hypriot.com/post/releasing-HypriotOS-1-0/)
 
 ```sh
 flash https://github.com/hypriot/image-builder-rpi/releases/download/[ver]/hypriotos-rpi-[ver].img.zip
@@ -70,7 +76,7 @@ flash https://github.com/hypriot/image-builder-rpi/releases/download/[ver]/hypri
 flash https://github.com/hypriot/image-builder-rpi/releases/download/v1.1.0/hypriotos-rpi-v1.1.0.img.zip
 ```
 
-2. Login:
+### Step-2. Login
 
 ```sh
 # (default-password 'hypriot')
@@ -79,19 +85,45 @@ ssh pirate@cFlat.local
 passwd
 ```
 
-3. Clone github
+### Step-3. Clone github
 
 ```sh
+cd /usr/src
 git clone https://github.com/cgHome/cflat.git
+cd cflat
 ```
 
-4. Build cflat
+### Step-4. Build
 
 ```sh
 # Init platform
-./cflat.sh init
+./cflat.sh
+
 # Build whole platform
-./cflat.sh build
+./cflat.sh build    # (drink a coup of coffee)
+```
+
+### Step-5. Usage
+
+```sh
+# Run (production)
+./cflat.sh prod
+
+# View log-files
+./cflat.sh logs
+
+# Install Plugin
+~/homebridge/homebridge.sh installPlugin homebridge-XXXX
+
+# Edit config.json 
+nano ~/homebridge/data/config.json  # (after save, it will restart automatically)
+
+# Uninstall Plugin
+~/homebridge/homebridge.sh uninstallPlugin homebridge-
+
+# Check (UI will be reworked)
+http://cflat.local/docker/
+http://cflat.local/node-red/
 ```
 
 ## Install Development-System
