@@ -32,7 +32,7 @@ Es ist sind zwei Umgebungen implementiert, wobei diese in verschiedenen „Modi�
 
    - **prod-mode:**  → docker-compose.prod.yml → „npm run prod“
 
-2. Development
+1. Development
 
    - **dev-mode:**   → docker-compose.dev.yml → „npm run dev“
    - **debug-mode:** → docker-compose.debug.yml → „npm run debug“
@@ -115,11 +115,11 @@ cd cflat
 # Install Plugin
 ~/homebridge/homebridge.sh installPlugin homebridge-XXXX
 
-# Edit config.json 
+# Edit config.json
 nano ~/homebridge/data/config.json  # (after save, it will restart automatically)
 
 # Uninstall Plugin
-~/homebridge/homebridge.sh uninstallPlugin homebridge-
+~/homebridge/homebridge.sh uninstallPlugin homebridge-XXXX
 
 # Check (UI will be reworked)
 http://cflat.local/docker/
