@@ -54,7 +54,7 @@ services:
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
         labels:
-            - traefik.frontend.rule=PathPrefixStrip:/system
+            - traefik.frontend.rule=PathPrefixStrip:/docker
         depends_on:
             - proxy
 
