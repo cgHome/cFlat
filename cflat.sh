@@ -37,19 +37,23 @@ _prod() {
 }
 
 _dev() {
-  docker-compose -f docker-compose.dev.yml -f docker-compose.prod.yml up -d $args
+  docker-compose -f docker-compose.prod.yml -f docker-compose.dev.yml up -d $args
 }
 
 _debug() {
-  docker-compose -f docker-compose.debug.yml -f docker-compose.dev.yml -f docker-compose.prod.yml up -d $args
+  docker-compose -f docker-compose.prod.yml -f docker-compose.dev.yml -f docker-compose.debug.yml up -d $args
 }
 
 _shutdown() {
-  docker-compose -f docker-compose.debug.yml -f docker-compose.dev.yml -f docker-compose.prod.yml down $args
+  docker-compose -f docker-compose.prod.yml -f docker-compose.dev.yml -f docker-compose.debug.yml down $args
 }
 
 _logs() {
-  docker-compose -f docker-compose.debug.yml -f docker-compose.dev.yml -f docker-compose.prod.yml logs -t $args
+  docker-compose -f docker-compose.prod.yml -f docker-compose.dev.yml -f docker-compose.debug.yml logs $args
+}
+
+_config() {
+  docker-compose -f docker-compose.prod.yml -f docker-compose.dev.yml -f docker-compose.debug.yml config $args
 }
 
 eval _$action

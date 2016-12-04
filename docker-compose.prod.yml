@@ -12,7 +12,7 @@ services:
         container_name: homebridge
         network_mode: host
         ports:
-            - "8765:8765"
+            - "51826:51826"
         volumes:
             - ${HOME}/homebridge:/home
         depends_on:
