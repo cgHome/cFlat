@@ -5,7 +5,7 @@ Mosquitto is an message broker service that uses the MQTT protocol to send and r
 ## Documentation
 
 - [Docu](https://mosquitto.org/)
-- [Docker - image](https://hub.docker.com/r/broodzak/rpi-mosquitto/)
+- [Docker - image](https://github.com/fstehle/docker-rpi-mosquitto)
 
 ## CLI interface
 

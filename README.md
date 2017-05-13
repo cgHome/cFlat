@@ -71,9 +71,10 @@ Zur einfacheren handhabe des Systems, wird ein einfaches Script (cflat.sh) berei
 ### Step-1. Install hypriotOS on RPI [Documentation](http://blog.hypriot.com/post/releasing-HypriotOS-1-0/)
 
 ```sh
-flash https://github.com/hypriot/image-builder-rpi/releases/download/[ver]/hypriotos-rpi-[ver].img.zip
+flash -n [hostname] https://github.com/hypriot/image-builder-rpi/releases/download/[ver]/hypriotos-rpi-[ver].img.zip
 # eg:
-flash https://github.com/hypriot/image-builder-rpi/releases/download/v1.1.0/hypriotos-rpi-v1.1.0.img.zip
+flash -n cflat https://github.com/hypriot/image-builder-rpi/releases/download/v1.4.0/hypriotos-rpi-v1.4.0.img.zip
+
 ```
 
 ### Step-2. Login
@@ -91,13 +92,14 @@ passwd
 cd /usr/src
 git clone https://github.com/cgHome/cflat.git
 cd cflat
+chmod +x ./cflat.sh
 ```
 
 ### Step-4. Build
 
 ```sh
 # Init platform
-./cflat.sh
+./cflat.sh init
 
 # Build whole platform
 ./cflat.sh build    # (drink a coup of coffee)

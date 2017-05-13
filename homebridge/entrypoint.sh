@@ -27,7 +27,8 @@ npm install
 echo "done ....."
 
 echo "Start avahi (bonjour)"
-su-exec root sed -i "s/rlimit-nproc=3/#rlimit-nproc=3/" /etc/avahi/avahi-daemon.conf 
+su-exec root sed -i "s/rlimit-nproc=3/#rlimit-nproc=3/" /etc/avahi/avahi-daemon.conf
+su-exec root sed -i "/^use-ipv6=/s/=.*/=no/" /etc/avahi/avahi-daemon.conf
 su-exec root dbus-daemon --system
 su-exec root avahi-daemon -D
 
