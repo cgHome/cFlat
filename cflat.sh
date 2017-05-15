@@ -22,10 +22,10 @@ args=$@
 
 _init() {
   # (Temp) init
-  mkdir -p homebridge
-  mkdir -p node-red
-  mkdir -p mqtt/{config,data,log}
-  chmod -R 777 mqtt
+  mkdir -p ~/homebridge
+  mkdir -p ~/node-red
+  mkdir -p ~/mqtt/{config,data,log}
+  chmod -R 777 ~/mqtt
 }
 
 _build() {

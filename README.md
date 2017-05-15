@@ -89,7 +89,6 @@ passwd
 ### Step-3. Clone github
 
 ```sh
-cd /usr/src
 git clone https://github.com/cgHome/cflat.git
 cd cflat
 chmod +x ./cflat.sh
