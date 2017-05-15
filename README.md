@@ -90,8 +90,7 @@ passwd
 
 ```sh
 git clone https://github.com/cgHome/cflat.git
-cd cflat
-chmod +x ./cflat.sh
+chmod +x cflat/cflat.sh
 ```
 
 ### Step-4. Build
