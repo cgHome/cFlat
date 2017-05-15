@@ -114,7 +114,7 @@ chmod +x ./cflat.sh
 ./cflat.sh logs
 
 # Install Plugin
-homebridge/homebridge.sh installPlugins homebridge-XXXX
+homebridge/homebridge.sh installPlugin homebridge-XXXX
 
 # Edit config.json
 nano homebridge/data/config.json  # (after save, it will restart automatically)

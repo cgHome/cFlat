@@ -101,12 +101,12 @@ _logs() {
   docker logs $container -t $args
 }
 
-_installPlugins() {
+_installPlugin() {
   _isContainerRunning
   docker exec -it $container npm install -S $args
 }
 
-_uninstallPlugins() {
+_uninstallPlugin() {
   _isContainerRunning
   docker exec -it $container npm uninstall -S $args
 }
