@@ -110,12 +110,6 @@ chmod +x ./cflat.sh
 # Run - production
 ./cflat.sh prod
 
-# Run - development
-./cflat.sh dev
-
-# Run - debug
-./cflat.sh debug
-
 # View log-files
 ./cflat.sh logs
 
