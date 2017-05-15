@@ -59,6 +59,7 @@ services:
             - proxy
 
     proxy:
+        build: ./proxy
         image: cghome/cflat-proxy
         container_name: proxy
         command: --web --docker --docker.watch --docker.domain=localhost 

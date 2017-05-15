@@ -8,6 +8,7 @@ fi
 echo "Config homebridge"
 if [ ! -f "$HOME/homebridge.sh" ]; then
     cp -pv $CFG/homebridge.sh $HOME
+    chmod +x $HOME/homebridge.sh
 fi
 if [ ! -f "$HOME/package.json" ]; then
     rm -rf node_modules

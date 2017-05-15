@@ -71,7 +71,7 @@ Zur einfacheren handhabe des Systems, wird ein einfaches Script (cflat.sh) berei
 ### Step-1. Install hypriotOS on RPI [Documentation](http://blog.hypriot.com/post/releasing-HypriotOS-1-0/)
 
 ```sh
-flash -n [hostname] https://github.com/hypriot/image-builder-rpi/releases/download/[ver]/hypriotos-rpi-[ver].img.zip
+flash -n [hostname] -s [ssid] -p [password] https://github.com/hypriot/image-builder-rpi/releases/download/[ver]/hypriotos-rpi-[ver].img.zip
 # eg:
 flash -n cflat https://github.com/hypriot/image-builder-rpi/releases/download/v1.4.0/hypriotos-rpi-v1.4.0.img.zip
 
@@ -107,22 +107,29 @@ chmod +x ./cflat.sh
 ### Step-5. Usage
 
 ```sh
-# Run (production)
+# Run - production
 ./cflat.sh prod
+
+# Run - development
+./cflat.sh dev
+
+# Run - debug
+./cflat.sh debug
 
 # View log-files
 ./cflat.sh logs
 
 # Install Plugin
-~/homebridge/homebridge.sh installPlugin homebridge-XXXX
+homebridge/homebridge.sh installPlugins homebridge-XXXX
 
 # Edit config.json
-nano ~/homebridge/data/config.json  # (after save, it will restart automatically)
+nano homebridge/data/config.json  # (after save, it will restart automatically)
 
 # Uninstall Plugin
-~/homebridge/homebridge.sh uninstallPlugin homebridge-XXXX
+homebridge/homebridge.sh uninstallPlugin homebridge-XXXX
 
 # Check (UI will be reworked)
+http://cflat.local:8080/
 http://cflat.local/docker/
 http://cflat.local/node-red/
 ```
@@ -187,4 +194,4 @@ sudo /etc/init.d/samba restart
 
 ## Copyright and license
 
-Copyright 2016, 2016 cgHome under [MIT License](LICENSE)
+Copyright 2016, 2017 cgHome under [MIT License](LICENSE)
