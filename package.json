@@ -1,6 +1,6 @@
 {
   "name": "cflat",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "cFlat - Smart Home Gateway",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "traefik",
     "hypriotOS"
   ],
-  "author": "Chris.Gross <cgHome@gmx.net>",
+  "author": "Chris Gross <cgHome@gmx.net>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/cgHome/cFlat/issues"
