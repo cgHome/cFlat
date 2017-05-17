@@ -141,7 +141,7 @@ sudo apt-get install smbclient cifs-utils
 ```sh
 sudo mount.cifs //[ip]/[repo] /mnt/smb/ -o user=[username],password=[password],rw,file_mode=0777,dir_mode=0777
 e.g.:
-sudo mount.cifs //192.168.188.20/repo /mnt/smb/ -o user=Chris,rw,file_mode=0777,dir_mode=0777
+sudo mount.cifs //192.168.188.xx/repo /mnt/smb/ -o user=Chris,rw,file_mode=0777,dir_mode=0777
 ```
 
 ### Setup samba-share

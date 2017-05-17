@@ -6,7 +6,7 @@
     "scripts": {
         "start": "node $NODE_OPTIONS node_modules/node-red/red.js -v $FLOWS"
     },
-    "author": "Chris.Gross <cgHome@gmx.net>",
+    "author": "Chris Gross <cgHome@gmx.net>",
     "license": "MIT",
     "repository": {},
     "dependencies": {

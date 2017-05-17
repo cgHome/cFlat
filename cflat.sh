@@ -24,6 +24,7 @@ _init() {
   # (Temp) init
   mkdir -p ~/homebridge
   mkdir -p ~/node-red
+  mkdir -p ~/docker-ui
   mkdir -p ~/mqtt/{config,data,log}
   chmod -R 777 ~/mqtt
 }
