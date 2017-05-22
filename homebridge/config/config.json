@@ -1,11 +1,13 @@
 {
     "bridge": {
         "name": "cFlat",
+        "manufacturer": "github.com/cgHome - Chris Gross",
+        "model": "cFlat",
         "username": "CC:22:3D:E3:CE:30",
         "port": 51826,
         "pin": "031-45-154"
     },
-    "description": "cFlat - HomeKit-Bridge",
+    "description": "cFlat - Smart home integration platform",
     "platforms": [
         {
             "platform": "mqtt",
